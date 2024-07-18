@@ -137,7 +137,7 @@ input:checked + .slider:before {
     background-color: #f5f5f5;
     transition: background-color 0.3s, border-color 0.3s;
     max-width: 600px;
-    width: 50%;
+    width: 60%; /* Adjusted width */
     margin-bottom: 20px;
 }
 
