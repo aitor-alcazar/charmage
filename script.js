@@ -4,8 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const previewContainer = document.getElementById('preview-container');
     const formatSelect = document.getElementById('format-select');
     const convertBtn = document.getElementById('convert-btn');
+    const loadingSpinner = document.getElementById('loading');
     const themeToggle = document.getElementById('theme-toggle');
-    
+
+    let originalFileName = ''; // To store the original file name
+
     // Open file explorer when clicking on drag and drop area
     dropArea.addEventListener('click', () => {
         fileInput.click();
@@ -45,10 +48,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 img.id = 'preview-img';
                 img.src = reader.result;
                 img.classList.add('image-preview');
-                
+
                 const fileName = document.createElement('p');
                 fileName.classList.add('file-name');
                 fileName.textContent = file.name;
+                
+                // Store the original file name without the extension
+                originalFileName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
 
                 previewContainer.innerHTML = '';
                 previewContainer.appendChild(img);
@@ -66,6 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const file = document.getElementById('preview-img');
         const format = formatSelect.value;
         if (file) {
+            // Show loading spinner
+            loadingSpinner.style.display = 'inline-block';
             // Convert and download the image
             convertAndDownloadImage(file.src, format);
         }
@@ -84,8 +92,12 @@ document.addEventListener('DOMContentLoaded', () => {
             canvas.toBlob((blob) => {
                 const link = document.createElement('a');
                 link.href = URL.createObjectURL(blob);
-                link.download = `converted.${format}`;
+                link.download = `${originalFileName}.${format}`; // Use the original file name with new format
                 link.click();
+                // Hide loading spinner and reset UI
+                loadingSpinner.style.display = 'none';
+                previewContainer.innerHTML = '';
+                dropArea.style.display = 'block';
             }, `image/${format}`);
         };
 

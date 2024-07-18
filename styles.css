@@ -226,20 +226,40 @@ input:checked + .slider:before {
     background-color: #0b79d0;
 }
 
+/* Loading Spinner */
+.loading-spinner {
+    display: none;
+    border: 4px solid rgba(0, 0, 0, 0.1); /* Light grey */
+    border-radius: 50%;
+    border-top: 4px solid #2196F3; /* Blue */
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+    margin-left: 10px;
+}
+
+.dark-theme .loading-spinner {
+    border-top: 4px solid #1e88e5; /* Darker blue */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 /* Footer Styles */
 .footer {
     width: 100%;
     background-color: rgba(200, 200, 200, 0.2);
     border-top: 1px solid #ddd;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-    padding: 5px 20px; /* Reduced padding for a shorter footer */
+    padding: 10px 20px;
     text-align: center;
     position: fixed;
     bottom: 0;
     left: 0;
-    transition: background-color 0.3s;
 }
 
-.footer.dark-theme {
+.dark-theme .footer {
     background-color: rgba(30, 30, 30, 0.6);
 }
